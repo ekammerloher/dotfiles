@@ -1,0 +1,61 @@
+" Put pathogen under version control as a submodule
+runtime bundle/vim-pathogen/autoload/pathogen.vim
+
+" This must be first, because it changes other options as a side effect
+set nocompatible
+
+" Load up the plugin manager
+execute pathogen#infect()
+" Custome plugins help tags generation
+execute pathogen#helptags()
+
+syntax on                         " Show syntax highlighting
+filetype plugin on                " Detect type and load specific plugins
+filetype indent on                " Load type specific indent file
+
+set encoding=utf-8                " Encoding used inside vim
+set autoindent                    " Copy indent from current to next line
+set expandtab                     " Use spaces, not tab characters
+set tabstop=4                     " Pressing tab generates 4 spaces
+set shiftwidth=4                  " Use four spaces for auto indentation
+set shiftround                    " Use multiple of shiftwidth for indents
+set relativenumber                " Show relative line numbers
+set number                        " Show true line number on current line
+set hlsearch                      " Highlight all search matches
+set ignorecase                    " Ignore case in search
+set smartcase                     " Override ignorecase when caps are used
+set incsearch                     " Show search results as I type
+set showmatch                     " Briefly jump to matching bracket
+set cursorline                    " Highlight current line
+set mouse=a                       " Enable mouse support
+set ruler                         " Show row and column in footer
+set laststatus=2                  " Always show status bar
+set list listchars=tab:»·,trail:· " Show extra space characters
+set clipboard=unnamed             " Use the system clipboard
+set backspace=indent,eol,start    " Allow backspacing over everything
+set showcmd                       " Display incomplete commands
+set history=1000                  " Keep 1000 lines of history
+set undolevels=1000               " Keep 1000 levels of undo history
+set autoread                      " Reload files changed outside vim
+set splitbelow                    " Open split below rather than above
+set splitright                    " Open split right rather than left
+
+" When editing a file, always jump to the last known cursor position
+autocmd BufReadPost *
+    \ if line("'\"") > 1 && line("'\"") <= line("$") |
+    \   exe "normal! g`\"" |
+    \ endif
+
+set statusline=%<%f\ %m%r%w%y%=%-14.(%l,%c%V%)\ %P
+
+" Set leader key to comma
+let mapleader = ","
+
+" Reset highlighted search
+nnoremap <CR> :let @/=""<CR><CR>
+
+" Set dark background and color scheme
+colorscheme ir_black
+
+" Make column 81 stand out
+call matchadd('ColorColumn', '\%81v', 100)
