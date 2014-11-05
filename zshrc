@@ -61,9 +61,11 @@ alias tree='tree -C' # Add color to tree command
 source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source ~/.zsh/zsh-history-substring-search/zsh-history-substring-search.zsh
 
-ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
 # To have paths colored instead of underlined
 ZSH_HIGHLIGHT_STYLES[path]='fg=cyan'
+# Match comments and color them magenta
+ZSH_HIGHLIGHT_PATTERNS+=('\#*' 'fg=magenta,bg=default')
 
 # bind UP and DOWN arrow keys (this work for OS X)
 bindkey '^[[A' history-substring-search-up
