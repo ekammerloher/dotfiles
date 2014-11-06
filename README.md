@@ -15,6 +15,12 @@ optimal yet.
 Vi mode in zsh is the standard input line mode.
 Keybindings need to be improved.
 
+## Prerequisites
+
+Install this first:
+
+`vim zsh tmux tree curl git`
+
 ## Installation Instructions
 
 Starting with vim 7.4 the configuration file can be placed in `~/.vim/vimrc`.

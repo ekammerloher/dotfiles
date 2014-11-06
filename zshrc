@@ -58,6 +58,12 @@ export PATH="/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sb
 alias ls='ls -Fh' # Show slash on directories etc. and print pretty size
 alias tree='tree -C' # Add color to tree command
 
+# Simple wrapper around curl to download videos
+# to file ~/Downloads/a.mp4 or ~/Downloads/b.mp4
+#curl -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/38.0.2125.111 Safari/537.36' -g -o ~/Downloads/a.mp4 "$1"
+alias ca='curl -g -o ~/Downloads/a.mp4'
+alias cb='curl -g -o ~/Downloads/b.mp4'
+
 source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source ~/.zsh/zsh-history-substring-search/zsh-history-substring-search.zsh
 
