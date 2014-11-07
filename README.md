@@ -19,7 +19,7 @@ Keybindings need to be improved.
 
 Install this first:
 
-`vim zsh tmux tree curl git`
+`vim zsh tmux tree curl git ipython`
 
 ## Installation Instructions
 

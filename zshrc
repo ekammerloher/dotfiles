@@ -49,7 +49,10 @@ zle -N zle-line-init
 zle -N zle-keymap-select
 
 # Does not work with tmux
-KEYTIMEOUT=1 # Set delay to 10ms for faster vi mode change
+#KEYTIMEOUT=1 # Set delay to 10ms for faster vi mode change
+# Map viins to jj. This is a more elegant way than using KEYTIMEOUT
+# set to low values
+bindkey -M viins 'jj' vi-cmd-mode
 
 export CLICOLOR=1 # Enable color in command output
 
