@@ -18,13 +18,8 @@ REPORTTIME=10 # Display CPU stats for commands taking more than 10 seconds
 
 bindkey -v # Enable vi mode
 
-#zstyle :compinstall filename '/Users/eugen/.zshrc'
-
 autoload -Uz compinit # Intelligent tab completion
 compinit
-#autoload -Uz promptinit
-#promptinit
-# Custome prompt
 #PROMPT="[%*] %1~/ %F{green}%B%#%b%f "
 PROMPT="[%*] %1~/ %B%#%b "
 
@@ -48,37 +43,52 @@ function zle-line-init zle-keymap-select {
 zle -N zle-line-init
 zle -N zle-keymap-select
 
-# Does not work with tmux
-#KEYTIMEOUT=1 # Set delay to 10ms for faster vi mode change
-# Map viins to jj. This is a more elegant way than using KEYTIMEOUT
-# set to low values
-bindkey -M viins 'jj' vi-cmd-mode
+# Does not work with tmux. Also set similar option in tmux
+KEYTIMEOUT=1 # Set delay to 10ms for faster vi mode change
 
 export CLICOLOR=1 # Enable color in command output
 
-export PATH="/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin"
+export PATH="/opt/local/bin:/opt/local/sbin:/usr/local/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/bin"
 
 alias ls='ls -Fh' # Show slash on directories etc. and print pretty size
 alias tree='tree -C' # Add color to tree command
+alias less='less -r' # Add color to less command
 
 # Simple wrapper around curl to download videos
 # to file ~/Downloads/a.mp4 or ~/Downloads/b.mp4
-#curl -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/38.0.2125.111 Safari/537.36' -g -o ~/Downloads/a.mp4 "$1"
-alias ca='curl -g -o ~/Downloads/a.mp4'
-alias cb='curl -g -o ~/Downloads/b.mp4'
+alias ca="rm -f ~/Downloads/a.mp4 && curl --retry 999 --retry-max-time 0 -C - -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/38.0.2125.111 Safari/537.36' -g -o ~/Downloads/a.mp4"
+alias cb="rm -f ~/Downloads/b.mp4 && curl --retry 999 --retry-max-time 0 -C - -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/38.0.2125.111 Safari/537.36' -g -o ~/Downloads/b.mp4"
 
 source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source ~/.zsh/zsh-history-substring-search/zsh-history-substring-search.zsh
+#source ~/.zsh/zsh-history-substring-search/zsh-history-substring-search.zsh
 
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
 # To have paths colored instead of underlined
 ZSH_HIGHLIGHT_STYLES[path]='fg=cyan'
 # Match comments and color them magenta
+# TODO: Add regex to match only at beginning of line or with a leading space
+# Still not enough for strings and options
 ZSH_HIGHLIGHT_PATTERNS+=('\#*' 'fg=magenta,bg=default')
 
-# bind UP and DOWN arrow keys (this work for OS X)
-bindkey '^[[A' history-substring-search-up
-bindkey '^[[B' history-substring-search-down
-# bind k and j for VI mode
-bindkey -M vicmd 'k' history-substring-search-up
-bindkey -M vicmd 'j' history-substring-search-down
+## Bind UP and DOWN arrow keys (this work for OS X)
+#bindkey '^[[A' history-substring-search-up
+#bindkey '^[[B' history-substring-search-down
+## Bind k and j for VI mode
+#bindkey -M vicmd 'k' history-substring-search-up
+#bindkey -M vicmd 'j' history-substring-search-down
+## Also bind ctrl-P and ctrl-N
+#bindkey -M viins '^P' history-substring-search-up
+#bindkey -M viins '^N' history-substring-search-down
+#bindkey -M vicmd '^P' history-substring-search-up
+#bindkey -M vicmd '^N' history-substring-search-down
+# Bind UP and DOWN arrow keys (this work for OS X)
+bindkey '^[[A' history-beginning-search-backward
+bindkey '^[[B' history-beginning-search-forward
+# Bind k and j for VI mode
+bindkey -M vicmd 'k' history-beginning-search-backward
+bindkey -M vicmd 'j' history-beginning-search-forward
+# Also bind ctrl-P and ctrl-N
+bindkey -M viins '^P' history-beginning-search-backward
+bindkey -M viins '^N' history-beginning-search-forward
+bindkey -M vicmd '^P' history-beginning-search-backward
+bindkey -M vicmd '^N' history-beginning-search-forward

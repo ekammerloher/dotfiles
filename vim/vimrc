@@ -6,10 +6,11 @@ set nocompatible
 
 " Load up the plugin manager
 execute pathogen#infect()
-" Custome plugins help tags generation
+" Custom plugins help tags generation
 execute pathogen#helptags()
 
-syntax on                         " Show syntax highlighting
+runtime macros/matchit.vim        " Activate included plugin to enhance %
+
 filetype plugin on                " Detect type and load specific plugins
 filetype indent on                " Load type specific indent file
 
@@ -23,14 +24,19 @@ set relativenumber                " Show relative line numbers
 set number                        " Show true line number on current line
 set hlsearch                      " Highlight all search matches
 set ignorecase                    " Ignore case in search
+set infercase                     " Match case in autocompletion menu to word
 set smartcase                     " Override ignorecase when caps are used
 set incsearch                     " Show search results as I type
 set showmatch                     " Briefly jump to matching bracket
 set cursorline                    " Highlight current line
+"set cursorcolumn                  " Highlight current column
+set scrolloff=2                   " Minimum lines above/below cursor
 set mouse=a                       " Enable mouse support
 set ruler                         " Show row and column in footer
 set laststatus=2                  " Always show status bar
-set list listchars=tab:»·,trail:· " Show extra space characters
+set list                          " Show nonprinting chars
+set listchars=tab:▸·              " Show tab characters
+set listchars+=trail:·            " Show trailing spaces
 set clipboard=unnamed             " Use the system clipboard
 set backspace=indent,eol,start    " Allow backspacing over everything
 set showcmd                       " Display incomplete commands
@@ -39,6 +45,12 @@ set undolevels=1000               " Keep 1000 levels of undo history
 set autoread                      " Reload files changed outside vim
 set splitbelow                    " Open split below rather than above
 set splitright                    " Open split right rather than left
+set wildmenu                      " Autocomplete menu for commands
+set wildmode=full                 " Cycle through list of completions on tab
+set ttimeoutlen=50                " Make Esc work faster
+set hidden                        " Buffer can exist in background
+set spell                         " Activate spell checking
+set spelllang=en_us               " Use US English dictionary
 
 " When editing a file, always jump to the last known cursor position
 autocmd BufReadPost *
@@ -46,16 +58,39 @@ autocmd BufReadPost *
     \   exe "normal! g`\"" |
     \ endif
 
-set statusline=%<%f\ %m%r%w%y%=%-14.(%l,%c%V%)\ %P
+" Add filetype to statusline
+set statusline=%<%f\ %m%r%w%y[buff%n]%=%-14.(%l,%c%V%)\ %P
 
-" Set leader key to comma
-let mapleader = ","
+" Navigate command line history. No need to move from home row to arrow keys
+cnoremap <C-p> <Up>
+cnoremap <C-n> <Down>
 
-" Reset highlighted search
-nnoremap <CR> :let @/=""<CR><CR>
+" Expansion of path in commands with %%
+cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 
-" Set dark background and color scheme
-colorscheme ir_black
+" Reselect visual block after indent/outdent
+vnoremap < <gv
+vnoremap > >gv
+
+" Expand screen redraw command to clear highlighted results
+nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
+
+" Rebuild tags file with F5
+nnoremap <f5> :!ctags -R --exclude=.git --languages=-sql<CR>
+
+" Mappings to navigate buffer list, based on Practical Vim and vim-unimpaired
+nnoremap <silent> [b :bprevious<CR>
+nnoremap <silent> ]b :bnext<CR>
+nnoremap <silent> [B :bfirst<CR>
+nnoremap <silent> ]B :blast<CR>
+
+" Set color scheme
+syntax enable                     " Show syntax highlighting
+set background=dark               " Defaults to dark version of solarized
+let g:solarized_hitrail=0         " Highlight trailing spaces stronger
+colorscheme solarized             " Set solarized colorscheme
+"call togglebg#map("<F5>")         " Setup a light/dark toggle for solarized
 
 " Make column 81 stand out
-call matchadd('ColorColumn', '\%81v', 100)
+highlight! ColorColumn ctermbg=red ctermfg=white
+call matchadd('ColorColumn', '\%80v', 100)
