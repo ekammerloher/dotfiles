@@ -11,10 +11,8 @@ The configuration centers mostly on vim and zsh. The tmux setup is not
 optimal yet.
 
 ![screenshot](screenshot.png)
-This is an old screenshot!
 
 Vi mode in zsh is the standard input line mode.
-Keybindings need to be extended.
 
 ## Prerequisites
 
