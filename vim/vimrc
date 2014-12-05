@@ -22,7 +22,7 @@ set shiftwidth=4                  " Use four spaces for auto indentation
 set shiftround                    " Use multiple of shiftwidth for indents
 set relativenumber                " Show relative line numbers
 set number                        " Show true line number on current line
-set hlsearch                      " Highlight all search matches
+"set hlsearch                      " Highlight all search matches
 set ignorecase                    " Ignore case in search
 set infercase                     " Match case in autocompletion menu to word
 set smartcase                     " Override ignorecase when caps are used
