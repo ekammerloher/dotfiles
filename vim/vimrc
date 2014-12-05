@@ -65,6 +65,9 @@ set statusline=%<%f\ %m%r%w%y[buff%n]%=%-14.(%l,%c%V%)\ %P
 cnoremap <C-p> <Up>
 cnoremap <C-n> <Down>
 
+" Alternative escape on the homerow
+imap jj <Esc>
+
 " Expansion of path in commands with %%
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 

@@ -17,6 +17,8 @@ setopt auto_cd # Cd can be omitted for directories. .. instead of cd ..
 REPORTTIME=10 # Display CPU stats for commands taking more than 10 seconds
 
 bindkey -v # Enable vi mode
+bindkey -M viins 'jj' vi-cmd-mode
+KEYTIMEOUT=40 # Set delay
 
 autoload -Uz compinit # Intelligent tab completion
 compinit
@@ -42,9 +44,6 @@ function zle-line-init zle-keymap-select {
 }
 zle -N zle-line-init
 zle -N zle-keymap-select
-
-# Does not work with tmux. Also set similar option in tmux
-KEYTIMEOUT=1 # Set delay to 10ms for faster vi mode change
 
 export CLICOLOR=1 # Enable color in command output
 
