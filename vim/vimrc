@@ -51,6 +51,8 @@ set ttimeoutlen=50                " Make Esc work faster
 set hidden                        " Buffer can exist in background
 set spell                         " Activate spell checking
 set spelllang=en_us               " Use US English dictionary
+set noswapfile                    " Do not create .swp file for open files
+set nobackup                      " Do not create tilde backup files on save
 
 " When editing a file, always jump to the last known cursor position
 autocmd BufReadPost *
@@ -58,8 +60,11 @@ autocmd BufReadPost *
     \   exe "normal! g`\"" |
     \ endif
 
+" Set correct filetype for md files
+autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+
 " Add filetype to statusline
-set statusline=%<%f\ %m%r%w%y[buff%n]%=%-14.(%l,%c%V%)\ %P
+set statusline=%<%f\ %m%r%w%y[buff%n]%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 
 " Navigate command line history. No need to move from home row to arrow keys
 cnoremap <C-p> <Up>

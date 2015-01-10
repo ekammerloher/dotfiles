@@ -53,11 +53,6 @@ alias ls='ls -Fh' # Show slash on directories etc. and print pretty size
 alias tree='tree -C' # Add color to tree command
 alias less='less -r' # Add color to less command
 
-# Simple wrapper around curl to download videos
-# to file ~/Downloads/a.mp4 or ~/Downloads/b.mp4
-#alias ca="rm -f ~/Downloads/a.mp4 && curl --retry 999 --retry-max-time 0 -C - -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/38.0.2125.111 Safari/537.36' -g -o ~/Downloads/a.mp4"
-#alias cb="rm -f ~/Downloads/b.mp4 && curl --retry 999 --retry-max-time 0 -C - -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/38.0.2125.111 Safari/537.36' -g -o ~/Downloads/b.mp4"
-
 # Simple wrapper around curl to download videos on OS X
 c() {
     local C_FILE=~/Downloads/"$1".mp4;
@@ -65,7 +60,7 @@ c() {
     rm -f $C_FILE;
     curl --retry 10 --retry-max-time 0 -C - -H $USER_AGENT -g -o $C_FILE "$2";
     if (($? == 0)); then
-        osascript -e "display notification \"Download of $1 complete\" with title \"Curl\"";
+        osascript -e "display notification \"Download of '$1' complete\" with title \"Curl\"";
     fi
 }
 
